@@ -1,5 +1,5 @@
 output "dev-sg-id" {
-    value=aws_security_group.sg
+    value={for k , v in aws_security_group.sg: k => v.id}
   
 }
 

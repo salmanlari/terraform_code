@@ -1,10 +1,17 @@
 #vpc_cidr
+
 variable "vpccidr" {
+  
    }
- #subnet
+
+ #SUBNET
+
 # variable "snetcidr" {
 # }
-#route table
+
+
+#ROUTE TABLE
+
 variable "routecidr" {
     type = string
     default = "0.0.0.0/0"
@@ -14,9 +21,23 @@ variable "env" {}
 
 variable "pub-subnet" {
   type = map(object({
-    cidr =  string
-    az   = string
+   pub-cidr =  string
+    pub-az   = string
 
   })) 
 }
+
+variable "pvt-subnet" {
+  type = map(object({
+    pvt-cidr =  string
+    pvt-az   = string
+
+  })) 
+}
+
+# variable "is_nat_required" {
+# }
+# variable "nat-pub-id" {
+  
+# }
 
