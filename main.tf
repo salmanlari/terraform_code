@@ -111,13 +111,25 @@ module "ec2" {
     ec2-type           = "t2.micro"
     snet               = lookup(module.nw.pub-snet-id, "pub_sub-1", null).id
     sg                 = lookup(module.sg.dev-sg-id, "ec2-sg", null)
-     pubsnet1          = lookup(module.nw.pub-snet-id, "pub_sub-1",null).id
-     pubsnet2          = lookup(module.nw.pub-snet-id, "pub_sub-2", null).id
+     
+     db_name           = module.rds.dbname
+     username        = module.rds.username
+     password = module.rds.password
+     db_instance = module.rds.dbhost
+
+     
+     
+}
+module "rds"{
+    source = "./module/rds"
 
      db_name            = "db_rds"
      username           = "admin"
      password           = "qwerty123"
-     rds-sg = lookup(module.sg2.dev-sg-id, "rds-sg", null)
+     rds-sg             = lookup(module.sg2.dev-sg-id, "rds-sg", null)
+     pubsnet1          = lookup(module.nw.pub-snet-id, "pub_sub-1",null).id
+     pubsnet2          = lookup(module.nw.pub-snet-id, "pub_sub-2", null).id
+
 }
 
 # module "lb" {
