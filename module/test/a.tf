@@ -18,7 +18,7 @@
 # variable "replace" {
 # default = "hello clims"
   
+# # }
+# output "test" {
+#   value =  merge({a="b", c="d"}, {e="f", c="z"})
 # }
-output "test" {
-  value =  merge({a="b", c="d"}, {e="f", c="z"})
-}

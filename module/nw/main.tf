@@ -25,7 +25,7 @@ resource "aws_subnet" "dev-pub-snet" {
   vpc_id            = aws_vpc.dev-vpc.id
   cidr_block        = each.value ["pub-cidr"]
   availability_zone = each.value ["pub-az"]
-  map_customer_owned_ip_on_launch = true
+  map_public_ip_on_launch = true
 
 }
 resource "aws_subnet" "dev-pvt-snet" {

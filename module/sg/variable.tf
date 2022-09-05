@@ -15,5 +15,3 @@ variable "sg_details" {
 }))
 default = {}
 }
-
-

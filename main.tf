@@ -57,6 +57,13 @@ module "sg" {
                 protocol     = "tcp"
                 cidr_blocks  = ["0.0.0.0/0"]
                 self         =null
+            },
+            {
+                from_port    = "3306"
+                to_port      = "3306"
+                protocol     = "tcp"
+                cidr_blocks  = ["0.0.0.0/0"]
+                self         =null
             }
         ]
     },
@@ -76,15 +83,41 @@ module "sg" {
     # }
   }
 }
+
+module "sg2" {
+    source = "./module/sg"
+    sg_details = {
+    rds-sg ={
+        name   ="rds"
+        description = "rds"
+        vpc_id = module.nw.dev-vpc-id
+        ingress_rules =[
+           {
+                from_port   = "3306"
+                to_port     = "3306"
+                protocol    = "tcp"
+                cidr_blocks = ["0.0.0.0/0"]
+                self        = null 
+                security_groups = [lookup(module.sg.dev-sg-id, "ec2-sg", null)]               
+            }
+            
+        ]
+    }
+    }
+}
 module "ec2" {
-    source   = "./module/ec2"
-    # count    = 2
-    ami-id   = "ami-068257025f72f470d"  
-    ec2-type = "t2.micro"
-    snet     = lookup(module.nw.pub-snet-id, "pub_sub-1", null).id
-    sg       = lookup(module.sg.dev-sg-id, "ec2-sg", null)
-     pubsnet1 = lookup(module.nw.pub-snet-id, "pub_sub-1",null).id
-     pubsnet2=lookup(module.nw.pub-snet-id, "pub_sub-2", null).id
+    source             = "./module/ec2"
+    ami-id             = "ami-068257025f72f470d"  
+    ec2-type           = "t2.micro"
+    snet               = lookup(module.nw.pub-snet-id, "pub_sub-1", null).id
+    sg                 = lookup(module.sg.dev-sg-id, "ec2-sg", null)
+     pubsnet1          = lookup(module.nw.pub-snet-id, "pub_sub-1",null).id
+     pubsnet2          = lookup(module.nw.pub-snet-id, "pub_sub-2", null).id
+
+     db_name            = "db_rds"
+     username           = "admin"
+     password           = "qwerty123"
+     rds-sg = lookup(module.sg2.dev-sg-id, "rds-sg", null)
 }
 
 # module "lb" {
@@ -113,14 +146,4 @@ module "ec2" {
 
 # output "ec2-id" {
 #   value = module.ec2.*.ec2-target-id
-# }
-
-
-# #..............................functions........
-
-# module "test" {
-#     source = "./module/test"
-# }
-# output "name" {
-# value = module.test.test
 # }
