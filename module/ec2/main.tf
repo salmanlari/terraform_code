@@ -54,12 +54,14 @@
 
 #EC2
 
-resource "aws_instance" "ec2" {
-  ami              = var.ami-id
-  instance_type    = var.ec2-type
-  subnet_id        = var.snet
-  security_groups  = [var.sg]
-  key_name         = "mumbai_key"
+resource "aws_instance" "ec2" {  
+   for_each = var.snet1
+  ami               = var.ami-id
+  instance_type     = var.ec2-type
+  #subnet_id        = var.snet
+   subnet_id        = each.value ["subnet"]
+  security_groups   = [var.sg]
+  key_name          = "mumbai_key"
   # iam_instance_profile = aws_iam_instance_profile.test_profile.name 
 user_data = <<-EOF
     #!/bin/bash
@@ -74,78 +76,78 @@ user_data = <<-EOF
     sudo chown -R www-data:www-data /var/www/html/
     sudo chmod -R 755 /var/www/html/
 EOF
-
-  tags = {
-    Name = "dev-ec2"
+  tags = {  
+     Name = "dev-ec2-${each.value ["name"] }"
+  
   }
 
-  // automation for WP-CONFIG file
+#   // automation for WP-CONFIG file
 
- provisioner "file" {
-    content     = data.template_file.phpconfig.rendered
-    destination = "/tmp/wp-config.php"
+#  provisioner "file" {
+#     content              = data.template_file.phpconfig.rendered
+#     destination          = "/tmp/wp-config.php"
 
-    connection {
-      type        = "ssh"
-      user        = "ubuntu"
-      host        = self.public_ip
-      private_key = file(var.ssh_priv_key)
-    }
-  }
+#     connection {
+#       type             = "ssh"
+#       user             = "ubuntu"
+#       host             = self.public_ip
+#       private_key      = file(var.ssh_priv_key)
+#     }
+#   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "sleep 200 && sudo cp /tmp/wp-config.php /var/www/html/wordpress/wp-config.php",
-    ]
+#   provisioner "remote-exec" {
+#     inline = [
+#       "sleep 200 && sudo cp /tmp/wp-config.php /var/www/html/wordpress/wp-config.php",
+#     ]
 
-    connection {
-      type        = "ssh"
-      user        = "ubuntu"
-      host = self.public_ip
-      private_key = file(var.ssh_priv_key)
-    }
-  }
+#     connection {
+#       type          = "ssh"
+#       user          = "ubuntu"
+#       host          = self.public_ip
+#       private_key   = file(var.ssh_priv_key)
+#     }
+#   }
 
-  //automation for DEFAULT file
+#   //automation for DEFAULT file
 
-  provisioner "file" {
-    content     = data.template_file.nginx.rendered
-    destination = "/tmp/default"
+#   provisioner "file" {
+#     content         = data.template_file.nginx.rendered
+#     destination     = "/tmp/default"
 
-    connection {
-      type        = "ssh"
-      user        = "ubuntu"
-      host = self.public_ip
-      private_key = file(var.ssh_priv_key)
-    }
-  }
+#     connection {
+#       type          = "ssh"
+#       user          = "ubuntu"
+#       host          = self.public_ip
+#       private_key   = file(var.ssh_priv_key)
+#     }
+#   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "sleep 200 && sudo cp /tmp/default /etc/nginx/sites-enabled",
-    ]
+#   provisioner "remote-exec" {
+#     inline = [
+#       "sleep 200 && sudo cp /tmp/default /etc/nginx/sites-enabled",
+#     ]
 
-    connection {
-      type        = "ssh"
-      user        = "ubuntu"
-      host        = self.public_ip
-      private_key = file(var.ssh_priv_key)
-    }
-  }
-}
-data "template_file" "phpconfig" {
-  template = file("files/wp-config.php")
+#     connection {
+#       type         = "ssh"
+#       user         = "ubuntu"
+#       host         = self.public_ip
+#       private_key  = file(var.ssh_priv_key)
+#     }
+#   }
+# }
+# data "template_file" "phpconfig" {
+#   template     = file("files/wp-config.php")
 
-  vars = {
-    # db_port = aws_db_instance.mysql.port
-    db_host = var.db_instance
-    db_user = var.username
-    db_pass = var.password
-    db_name = var.db_name
-  }
-}
-data "template_file" "nginx" {
-  template = file("files/default")
+#   vars = {
+#     # db_port = aws_db_instance.mysql.port
+#     db_host    = var.db_instance                       
+#     db_user    = var.username
+#     db_pass    = var.password
+#     db_name    = var.db_name
+#   }
+# }
+# data "template_file" "nginx" {
+#   template   = file("files/default")
 
 }
 

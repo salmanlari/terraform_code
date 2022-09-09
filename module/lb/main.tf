@@ -5,7 +5,8 @@
   internal           = var.alb-type
   load_balancer_type = "application"
   security_groups    = var.sg_groups
-  subnets            = var.snets
+  # subnets            = [var.snets1 , var.snets2]
+  subnets = var.snets1
   enable_deletion_protection = false
 
   tags = {
@@ -17,18 +18,19 @@
 #target group
 
 resource "aws_lb_target_group" "dev-tg" {
-  name     = var.tg-name
-  port     = var.port
-  protocol = "HTTP"
-  vpc_id   = var.vpc-id
+  name        = var.tg-name
+  port        = var.port
+  protocol    = "HTTP"
+  vpc_id      = var.vpc-id
   target_type = var.tg-type
 }
 
 # resource "aws_lb_target_group_attachment" "dev-tga" {
-#   count = length(var.snets)
-#   target_group_arn = aws_lb_target_group.dev-tg.arn
-#   target_id        = var.ec2-id[count.index]
-#   port             = var.port
+# for_each = var.ec2-id
+#   target_group_arn    = aws_lb_target_group.dev-tg.arn
+#   # target_id          = var.ec2-id
+#   target_id           = each.value ["ec2_tg_id"]
+#   port                = var.port
 # }
 
 resource "aws_lb_listener" "dev-lb-attach" {

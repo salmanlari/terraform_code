@@ -22,3 +22,12 @@ variable "ami-id" {
 variable "ec2-instance-type" {
   
 }
+variable "max_ec2" {
+  
+}
+variable "min_ec2" {
+  
+}
+variable "hc_ec2" {
+  
+}
