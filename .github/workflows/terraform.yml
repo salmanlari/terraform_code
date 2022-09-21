@@ -7,15 +7,17 @@ on:
 
 jobs:
   terraform:
+    name: 'Terraform'
     runs-on: ubuntu-latest
 
-  steps:
-    - uses: actions/checkout@v1
-      name: Download codebase
+
+    steps:
+      - uses: actions/checkout@v1
+        name: Download codebase
 
 
-    - name: terraform plan
-      uses: dflook/terraform-plan@v1
+      - name: terraform plan
+        uses: dflook/terraform-plan@v1
 
 
     # - name: terraform apply
