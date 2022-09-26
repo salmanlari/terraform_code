@@ -32,5 +32,5 @@ jobs:
         
       - name: asg update
         run: |
-          aws autoscaling update-autoscaling-group-name --auto-sacling-group-name app-asg --launch-configuration-name my-lc20220926095322122600000001
+          aws autoscaling update-auto-scaling-group --auto-scaling-group-name app-asg --launch-configuration-name my-lc20220926095322122600000001
       
