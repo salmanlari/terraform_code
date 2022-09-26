@@ -34,7 +34,7 @@ jobs:
         run: |
 
           aws autoscaling update-auto-scaling-group --auto-scaling-group-name app-asg --launch-configuration-name nginx_new
-          aws autoscaling update-auto-scaling-group --auto-scaling-group-name app-asg --min-size 1
+          aws autoscaling update-auto-scaling-group --auto-scaling-group-name app-asg --min-size 2
 
     
         
