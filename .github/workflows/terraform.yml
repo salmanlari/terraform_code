@@ -22,6 +22,7 @@ jobs:
 
       - name: terraform plan
         uses: dflook/terraform-plan@v1
+
       - name: aws login configaration  
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -32,3 +33,10 @@ jobs:
       - name: asg update
         run: |
           aws autosacling update-auto-scaling-group --auto-scaling-group-name app-asg --launch-configuration-name nginx_new
+
+        
+ 
+        
+
+      
+
