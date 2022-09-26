@@ -15,7 +15,7 @@ data "aws_availability_zones" "available" {
 
 resource "aws_launch_configuration" "dev-conf" {
   # name            = "${var.app_name}-${env}-lc"
-  name_prefix        = "lc"
+  name_prefix        = "my-lc"
   image_id           = var.ami-id
   instance_type      = var.ec2-instance-type
   security_groups    = var.sg_groups
@@ -25,13 +25,13 @@ resource "aws_launch_configuration" "dev-conf" {
   }
 }
 
-resource "aws_autoscaling_policy" "asg-policy" {
-  name                         = "asg-policy"
-  scaling_adjustment           = 4
-  adjustment_type              = "ChangeInCapacity"
-  cooldown                     = 300
-  autoscaling_group_name       = aws_autoscaling_group.asg.name
-}
+# resource "aws_autoscaling_policy" "asg-policy" {
+#   name                         = "asg-policy"
+#   scaling_adjustment           = 4
+#   adjustment_type              = "ChangeInCapacity"
+#   cooldown                     = 300
+#   autoscaling_group_name       = aws_autoscaling_group.asg.name
+# }
 
 resource "aws_autoscaling_group" "asg" {
   #availability_zones        = data.aws_availability_zones.available.names
