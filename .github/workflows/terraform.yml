@@ -32,3 +32,4 @@ jobs:
       - name: asg_update
         run: |
           aws autoscaling update-auto-scaling-group --auto-scaling-group-name app-asg --launch-configuration-name nginx_new
+#hello
