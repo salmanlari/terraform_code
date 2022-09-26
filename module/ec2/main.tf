@@ -55,7 +55,7 @@
 #EC2
 
 resource "aws_instance" "ec2" {  
-   for_each = var.snet1
+  for_each          = var.snet1
   ami               = var.ami-id
   instance_type     = var.ec2-type
   #subnet_id        = var.snet
