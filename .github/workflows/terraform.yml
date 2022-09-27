@@ -38,8 +38,7 @@ jobs:
 
       - name: add tag
         uses: rickstaa/action-create-tag@v1
-      - name: publish release
-        uses: eloquent/github-release-action@v3
+
 
     
     
