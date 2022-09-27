@@ -25,9 +25,18 @@ jobs:
 
       - uses: actions/checkout@v3
       - uses: anothrNick/github-tag-action@1.40.0
+        name: adding tag
         env:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
          WITH_V: true
+
+      - name: release adding
+        uses: actions/checkout@v2
+      - uses: ncipollo/release-action@v1
+        with:
+         artifacts: "release.tar.gz,foo/*.txt"
+         bodyFile: "body.md"
+         token: ${{ secrets.YOUR_GITHUB_TOKEN }}
       # - uses: rickstaa/action-create-tag@v1
       #   with:
       #     tag: "latest-3"
