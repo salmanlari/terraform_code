@@ -31,9 +31,12 @@ jobs:
          WITH_V: true
 
       - name: release adding
-        uses: ncipollo/release-action@v1
+        uses: actions/checkout@v2
+      - uses: ncipollo/release-action@v1
         with:
-           token: ${{ secrets.YOUR_GITHUB_TOKEN }}
+         artifacts: "release.tar.gz,foo/*.txt"
+         bodyFile: "body.md"
+         token: ${{ secrets.YOUR_GITHUB_TOKEN }}
       # - uses: rickstaa/action-create-tag@v1
       #   with:
       #     tag: "latest-3"
