@@ -23,6 +23,12 @@ jobs:
       - name: terraform plan
         uses: dflook/terraform-plan@v1
 
+      - uses: actions/checkout@v3
+      - uses: rickstaa/action-create-tag@v1
+        with:
+          tag: "latest-3"
+          message: "Latest release"
+
       - name: aws login configaration  
         uses: aws-actions/configure-aws-credentials@v1
         with:
