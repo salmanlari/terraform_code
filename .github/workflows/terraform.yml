@@ -38,6 +38,9 @@ jobs:
 
       - name: add tag
         uses: rickstaa/action-create-tag@v1
+        with:
+          tag: "latest"
+          message: "Latest release"
 
     
     
