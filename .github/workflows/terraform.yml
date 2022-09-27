@@ -37,6 +37,8 @@ jobs:
         with:
           tag_name: ${{ github.run_number }} 
           release_name: release ${{ github.run_number }}
+          draft: false
+          prerelease: false
       # - uses: rickstaa/action-create-tag@v1
       #   with:
       #     tag: "latest-3"
