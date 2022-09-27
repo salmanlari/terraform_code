@@ -30,13 +30,13 @@ jobs:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
          WITH_V: true
 
-      - name: release adding
-        uses: actions/checkout@v2
-      - uses: ncipollo/release-action@v1
+      - name: github release adding
+        uses: actions/create-release@v1
+        env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-         artifacts: "release.tar.gz,foo/*.txt"
-         bodyFile: "body.md"
-         token: ${{ secrets.YOUR_GITHUB_TOKEN }}
+          tag_name: ${{ github.run_number }} 
+          release_name: release ${{ github.run_number }}
       # - uses: rickstaa/action-create-tag@v1
       #   with:
       #     tag: "latest-3"
