@@ -36,11 +36,9 @@ jobs:
       #     aws autoscaling update-auto-scaling-group --auto-scaling-group-name app-asg --launch-configuration-name nginx_new
       #     aws autoscaling update-auto-scaling-group --auto-scaling-group-name app-asg --min-size 2
 
-      - name: add tag
-        uses: rickstaa/action-create-tag@v1
-        with:
-          tag: "latest"
-          message: "Latest release"
+
+
+
     
     
         
