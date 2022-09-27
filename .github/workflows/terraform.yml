@@ -30,12 +30,18 @@ jobs:
            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
            aws-region: ap-south-1
     
-      - name: asg_update
-        run: |
+      # - name: asg_update
+      #   run: |
 
-          aws autoscaling update-auto-scaling-group --auto-scaling-group-name app-asg --launch-configuration-name nginx_new
-          aws autoscaling update-auto-scaling-group --auto-scaling-group-name app-asg --min-size 2
+      #     aws autoscaling update-auto-scaling-group --auto-scaling-group-name app-asg --launch-configuration-name nginx_new
+      #     aws autoscaling update-auto-scaling-group --auto-scaling-group-name app-asg --min-size 2
 
+      - name: add tag
+        uses: rickstaa/action-create-tag@v1
+        with:
+          tag: "latest"
+          message: "Latest release"
+    
     
         
  
