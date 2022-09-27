@@ -24,10 +24,15 @@ jobs:
         uses: dflook/terraform-plan@v1
 
       - uses: actions/checkout@v3
-      - uses: rickstaa/action-create-tag@v1
-        with:
-          tag: "latest-3"
-          message: "Latest release"
+      - uses: anothrNick/github-tag-action@1.40.0
+        env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         WITH_V: true
+      # - uses: rickstaa/action-create-tag@v1
+      #   with:
+      #     tag: "latest-3"
+      #     message: "Latest release"
+
 
       - name: aws login configaration  
         uses: aws-actions/configure-aws-credentials@v1
