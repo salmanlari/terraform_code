@@ -9,7 +9,7 @@ on:
 
 jobs:
   job1: 
-    if: github.repository == 'salmanlari/terraform_code'
+    # if: github.repository == 'salmanlari/terraform_code'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -45,3 +45,15 @@ jobs:
       - run: echo "world" 
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+
+      - name: Notify Deployment Repo
+        env:
+          SERVICE_NAME: starter-service
+          DEPLOYMENT_NOTIFICATION_URL: https://api.github.com/repos/salmanlari/terraform_code/actions/workflows/dispatches
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        run: |
+          AUTH_HEADER="Authorization: token ${{ secrets.GITHUB_TOKEN }}"
+          PAYLOAD='{ "event_type": "deploy_service", "client_payload": { "service": "'"$SERVICE_NAME"'", "version": "'"$RELEASE_VERSION"'" }}'
+          curl --request POST "$DEPLOYMENT_NOTIFICATION_URL" --header "$AUTH_HEADER" --header "Content-Type: application/json" --data-raw "$PAYLOAD" -f -i 
+              
