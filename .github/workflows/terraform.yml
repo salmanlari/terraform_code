@@ -24,29 +24,32 @@ jobs:
         uses: dflook/terraform-plan@v1
 # tag github
       - uses: actions/checkout@v3
+
       - uses: anothrNick/github-tag-action@1.40.0
         name: adding tag
         env:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
          WITH_V: true
 
-      # - name: github release adding
-      #   uses: actions/create-release@v1
-      #   env:
-      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     tag_name: ${{ github.run_number }} 
-      #     release_name: release ${{ github.run_number }}
-      #     body: |
-      #       Changes in this Release
-      #       - First Change
-      #       - Second Change
-      #     draft: false
-      #     prerelease: false
-      # - uses: rickstaa/action-create-tag@v1
-      #   with:
-      #     tag: "latest-3"
-      #     message: "Latest release"
+      - name: github release adding
+        uses: actions/create-release@v1
+        env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          # tag_name: ${{ github.run_number }} 
+          # release_name: release ${{ github.run_number }}
+          # body: |
+          #   Changes in this Release
+          #   - First Change
+          #   - Second Change
+          draft: false
+          prerelease: false
+      - uses: rickstaa/action-create-tag@v1
+        with:
+          tag: "latest-3"
+          message: "Latest release"
 
 
       - name: aws login configaration  
