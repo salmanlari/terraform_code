@@ -9,7 +9,7 @@ on:
 
 jobs:
   job1: 
-    if: github.repository == 'https://github.com/salmanlari/terraform_code.git'
+    if: github.repository == 'salmanlari/terraform_code'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
