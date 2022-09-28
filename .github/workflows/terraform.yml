@@ -46,10 +46,10 @@ jobs:
           #   - Second Change
           draft: false
           prerelease: false
-      - uses: rickstaa/action-create-tag@v1
-        with:
-          tag: "latest-3"
-          message: "Latest release"
+      # - uses: rickstaa/action-create-tag@v1
+      #   with:
+      #     tag: "latest-4"
+      #     message: "Latest release"
 
 
       - name: aws login configaration  
