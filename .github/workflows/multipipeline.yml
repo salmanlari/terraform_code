@@ -21,6 +21,8 @@ jobs:
    steps:
      - uses: actions/checkout@v1
      - run: echo "world"   
+       env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
 
 
@@ -29,9 +31,13 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: echo "hello" 
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         
   job4:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - run: echo "world" 
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
