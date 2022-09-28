@@ -49,11 +49,10 @@ jobs:
 
       - name: Notify Deployment Repo
         env:
-          SERVICE_NAME: starter-service
           DEPLOYMENT_NOTIFICATION_URL: https://api.github.com/repos/salmanlari/terraform_code/dispatches
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: |
           AUTH_HEADER="Authorization: token ${{ secrets.GITHUB_TOKEN }}"
-          PAYLOAD='{ "event_type": "deploy_service", "client_payload": { "service": "'"$SERVICE_NAME"'", "version": "'"$RELEASE_VERSION"'" }}'
+          PAYLOAD='{ "event_type": "deploy_service"}'
           curl --request POST "$DEPLOYMENT_NOTIFICATION_URL" --header "$AUTH_HEADER" --header "Content-Type: application/json" --data-raw "$PAYLOAD" -f -i 
               
