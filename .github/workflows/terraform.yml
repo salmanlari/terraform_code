@@ -1,66 +1,70 @@
-name: terraform execution
+# name: terraform execution
 
-on:
-  push:
-    branches: [ "master" ]
-  pull_request:
+# on:
+#   push:
+#     branches: [ "master" ]
+#   pull_request:
 
-jobs:
-  terraform:
-    name: 'Terraform'
-    runs-on: ubuntu-latest
-    env:
-      AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
-      AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-      GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-
-
-
-    steps:
-      - uses: actions/checkout@v1
-        name: Download codebase
-
-      - name: terraform plan
-        uses: dflook/terraform-plan@v1
-# tag github
-      - uses: actions/checkout@v3
-      - uses: anothrNick/github-tag-action@1.40.0
-        name: adding tag
-        env:
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-         WITH_V: true
-
-      # - name: github release adding
-      #   uses: actions/create-release@v1
-      #   env:
-      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     tag_name: ${{ github.run_number }} 
-      #     release_name: release ${{ github.run_number }}
-      #     body: |
-      #       Changes in this Release
-      #       - First Change
-      #       - Second Change
-      #     draft: false
-      #     prerelease: false
-      # - uses: rickstaa/action-create-tag@v1
-      #   with:
-      #     tag: "latest-3"
-      #     message: "Latest release"
+# jobs:
+#   terraform:
+#     name: 'Terraform'
+#     runs-on: ubuntu-latest
+#     env:
+#       AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+#       AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+#       GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
 
-      - name: aws login configaration  
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-           aws-region: ap-south-1
+
+#     steps:
+#       - uses: actions/checkout@v1
+#         name: Download codebase
+
+#       - name: terraform plan
+#         uses: dflook/terraform-plan@v1
+# # tag github
+#       - uses: actions/checkout@v3
+
+#       - uses: anothrNick/github-tag-action@1.40.0
+#         name: adding tag
+#         env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          WITH_V: true
+
+#       - name: github release adding
+#         uses: actions/create-release@v1
+#         env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         with:
+
+#            tag_name: ${{ github.run_number }} 
+#            release_name: release ${{ github.run_number }}
+#            body: |
+#              Changes in this Release
+#              - First Change
+#              - Second Change
+#            draft: false
+#            prerelease: false
+
+
+#       # - uses: rickstaa/action-create-tag@v1
+#       #   with:
+#       #     tag: "latest-4"
+#       #     message: "Latest release"
+
+
+#       - name: aws login configaration  
+#         uses: aws-actions/configure-aws-credentials@v1
+#         with:
+#            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#            aws-region: ap-south-1
     
-      # - name: asg_update
-      #   run: |
+#       # - name: asg_update
+#       #   run: |
 
-      #     aws autoscaling update-auto-scaling-group --auto-scaling-group-name app-asg --launch-configuration-name nginx_new
-      #     aws autoscaling update-auto-scaling-group --auto-scaling-group-name app-asg --min-size 2
+#       #     aws autoscaling update-auto-scaling-group --auto-scaling-group-name app-asg --launch-configuration-name nginx_new
+#       #     aws autoscaling update-auto-scaling-group --auto-scaling-group-name app-asg --min-size 2
 
 
 
