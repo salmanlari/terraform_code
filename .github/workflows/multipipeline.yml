@@ -1,0 +1,35 @@
+
+name: multistage pipeline
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+
+
+jobs:
+  job1: 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: echo "hello" 
+        
+  job2: 
+   runs-on: ubuntu-latest
+   steps:
+     - uses: actions/checkout@v1
+     - run: echo "world"   
+
+
+
+  job3:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: echo "hello" 
+        
+  job4:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: echo "world" 
