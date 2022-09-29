@@ -1,20 +1,24 @@
-# name:  user input manual workflows
-# on:
-#  workflow_dispatch:
-#     inputs:
-#     name:
-#         type: choice
-#         description: choose one
-#         options:
-#           - salman
-#           - lari
-#     message:
-#         required: true
-#   #
-#   #
+name:  user input manual workflows
 
-# jobs:
-#   job:  
-#     runs-on: ubuntu-latest
-#     steps:
-#       - run: ${{github.event.inputs.message"}}"
+on:
+  workflow_dispatch:
+    inputs:
+     name:
+       type: choice
+       description: choose one
+       options:
+         - salman
+         - lari
+     message:
+       required: true
+  
+jobs:
+  job:  
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: print
+        run: echo "hello"
+      - run: echo "${{github.event.inputs.name}} ${{github.event.inputs.message}}"
+
+
