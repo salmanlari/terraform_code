@@ -1,58 +1,58 @@
 
-# name: multistage pipeline
+name: multistage pipeline
 
-# on:
-#   push:
-#     branches: [ "master" ]
-#   pull_request:
-
-
-# jobs:
-# #   job1: 
-# #     # if: github.repository == 'salmanlari/terraform_code'
-# #     runs-on: ubuntu-latest
-# #     steps:
-# #       - uses: actions/checkout@v1
-# #       - run: echo "hello" 
-# #         env:
-# #           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        
-# #   job2: 
-# #    runs-on: ubuntu-latest
-# #    needs: job1
-# #    steps:
-# #      - uses: actions/checkout@v1
-# #      - run: echo "world"   
-# #        env:
-# #         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
 
 
-
-# #   job3:
-# #     runs-on: ubuntu-latest
-# #     needs: job2
-# #     steps:
-# #       - uses: actions/checkout@v1
-# #       - run: echo "hello" 
-# #         env:
-# #           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        
-#   job4:
+jobs:
+#   job1: 
+#     # if: github.repository == 'salmanlari/terraform_code'
 #     runs-on: ubuntu-latest
-#     # needs: job3
-#     #
 #     steps:
 #       - uses: actions/checkout@v1
-#       - run: echo "world" 
+#       - run: echo "hello" 
 #         env:
 #           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        
+#   job2: 
+#    runs-on: ubuntu-latest
+#    needs: job1
+#    steps:
+#      - uses: actions/checkout@v1
+#      - run: echo "world"   
+#        env:
+#         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
 
-#       - name: Notify Deployment Repo
+
+#   job3:
+#     runs-on: ubuntu-latest
+#     needs: job2
+#     steps:
+#       - uses: actions/checkout@v1
+#       - run: echo "hello" 
 #         env:
-#           DEPLOYMENT_NOTIFICATION_URL: https://api.github.com/repos/salmanlari/test/dispatches
 #           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-#         run: |
-#           AUTH_HEADER="Authorization: token ${{ secrets.GIT_PAT }}"  
-#           PAYLOAD='{ "event_type": "deploy_service"}'
-#           curl --request POST "$DEPLOYMENT_NOTIFICATION_URL" --header "$AUTH_HEADER" --header "Content-Type: application/json" --data-raw "$PAYLOAD" -f -i
+        
+  job4:
+    runs-on: ubuntu-latest
+    # needs: job3
+    #
+    steps:
+      - uses: actions/checkout@v1
+      - run: echo "world" 
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+
+      - name: Notify Deployment Repo
+        env:
+          DEPLOYMENT_NOTIFICATION_URL: https://api.github.com/repos/salmanlari/test/dispatches
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        run: |
+          AUTH_HEADER="Authorization: token ${{ secrets.GIT_PAT }}"  
+          PAYLOAD='{ "event_type": "deploy_service"}'
+          curl --request POST "$DEPLOYMENT_NOTIFICATION_URL" --header "$AUTH_HEADER" --header "Content-Type: application/json" --data-raw "$PAYLOAD" -f -i
