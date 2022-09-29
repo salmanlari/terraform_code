@@ -3,14 +3,14 @@ name:  user input manual workflows
 on:
   workflow_dispatch:
     inputs:
-     name:
-        type: choice
-        description: choose one
-        options:
-          - salman
-          - lari
-     message:
-        required: true
+      name:
+       type: choice
+       description: choose one
+       options:
+         - salman
+         - lari
+      message:
+       required: true
   
 jobs:
   job:  
