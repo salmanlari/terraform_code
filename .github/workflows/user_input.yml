@@ -20,3 +20,4 @@ jobs:
       - name: print
         run: echo "hello"
       - run: echo "${{github.event.inputs.name}} ${{github.event.inputs.message}}"
+
