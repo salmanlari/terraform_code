@@ -3,13 +3,13 @@ name:  user input manual workflows
 on:
   workflow_dispatch:
     inputs:
-     name:
+      name:
        type: choice
        description: choose one
        options:
          - salman
          - lari
-     message:
+      message:
        required: true
   
 jobs:
@@ -20,5 +20,4 @@ jobs:
       - name: print
         run: echo "hello"
       - run: echo "${{github.event.inputs.name}} ${{github.event.inputs.message}}"
-
 
