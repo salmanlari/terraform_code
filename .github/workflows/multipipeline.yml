@@ -40,6 +40,7 @@ jobs:
   job4:
     runs-on: ubuntu-latest
     # needs: job3
+    #
     steps:
       - uses: actions/checkout@v1
       - run: echo "world" 
@@ -52,6 +53,6 @@ jobs:
           DEPLOYMENT_NOTIFICATION_URL: https://api.github.com/repos/salmanlari/terraform_code/dispatches
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: |
-          AUTH_HEADER="Authorization: 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"
+          AUTH_HEADER="Authorization: token ${{ secrets.GITHUB_TOKEN }}"
           PAYLOAD='{ "event_type": "deploy_service"}'
           curl --request POST "$DEPLOYMENT_NOTIFICATION_URL" --header "$AUTH_HEADER" --header "Content-Type: application/json" --data-raw "$PAYLOAD" -f -i
