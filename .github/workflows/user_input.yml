@@ -15,5 +15,10 @@ on:
 jobs:
   job:  
     runs-on: ubuntu-latest
+    
     steps:
-      - run: echo "${{github.event.inputs.name"}} ${{github.event.inputs.message"}}"
+      - name: print
+        run: echo "hello"
+
+
+#       - run: echo "${{github.event.inputs.name"}} ${{github.event.inputs.message"}}"
