@@ -49,7 +49,7 @@ jobs:
 
       - name: Notify Deployment Repo
         env:
-          DEPLOYMENT_NOTIFICATION_URL: https://api.github.com/repos/salmanlari/terraform_code
+          DEPLOYMENT_NOTIFICATION_URL: https://api.github.com/repos/salmanlari/terraform_code/dispatches
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: |
           AUTH_HEADER="Authorization: token ${{ secrets.GITHUB_TOKEN }}"
