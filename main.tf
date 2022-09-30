@@ -184,6 +184,7 @@ module "asg" {
     tg-arn            = module.lb.tg-arn
     ami-id            = "ami-062df10d14676e201"
     ec2-instance-type = "t2.micro"
+    desired_ec2       = 1
     min_ec2           = 1
     max_ec2           = 5
     hc_ec2            = 300

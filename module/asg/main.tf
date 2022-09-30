@@ -37,6 +37,7 @@ resource "aws_autoscaling_group" "asg" {
   #availability_zones        = data.aws_availability_zones.available.names
   vpc_zone_identifier        = var.pub-snet
   name                       = "app-asg"
+  desired_capacity           = var.desired_ec2
   max_size                   = var.max_ec2
   min_size                   = var.min_ec2
   health_check_grace_period  = var.hc_ec2
