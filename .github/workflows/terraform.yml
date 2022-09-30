@@ -28,7 +28,9 @@ jobs:
       #   uses: dflook/terraform-apply@v1
         
       - name: terraform destroy
-        run: terraform destroy -auto-approve
+        run: |
+          terraform init
+          terraform destroy -auto-approve
 
 # tag github
       - uses: actions/checkout@v3
