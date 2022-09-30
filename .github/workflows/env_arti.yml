@@ -2,7 +2,7 @@ name: env artifact file
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ feature ]
   pull_request:
 
 jobs:
@@ -19,3 +19,5 @@ jobs:
         with:
           name: my-artifact
           path: envfile.txt
+          #
+          ########
