@@ -3,6 +3,15 @@ provider "aws" {
     
 } 
 
+terraform {
+  backend "s3" {
+    bucket = "endpoint11"
+    key    = "tf_backend/terraform.tfstate"
+    region = "ap-southeast-1"
+  }
+}
+
+
 module "nw" {
 source = "./module/nw"
 vpccidr = "10.0.0.0/20"
