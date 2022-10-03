@@ -20,6 +20,13 @@ resource "aws_launch_configuration" "dev-conf" {
   instance_type      = var.ec2-instance-type
   security_groups    = var.sg_groups
   key_name           = var.key-name
+  user_data = <<-EOF
+  #!/bin/bash
+  sudo su -
+  apt update -y
+  apt install nginx -y
+  systemctl restart nginx.service
+  EOF
     lifecycle {
     create_before_destroy = true
   }
