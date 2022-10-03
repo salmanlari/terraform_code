@@ -31,3 +31,6 @@ variable "min_ec2" {
 variable "hc_ec2" {
   
 }
+variable "desired_ec2" {
+  
+}
