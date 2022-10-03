@@ -50,7 +50,7 @@ jobs:
 
       - name: Notify Deployment Repo
         env:
-          DEPLOYMENT_NOTIFICATION_URL: https://api.github.com/repos/salmanlari/test/dispatches
+          DEPLOYMENT_NOTIFICATION_URL: https://api.github.com/repos/salmanlari/workflow_test/dispatches
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: |
           AUTH_HEADER="Authorization: token ${{ secrets.GIT_PAT }}"  

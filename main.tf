@@ -3,6 +3,15 @@ provider "aws" {
     
 } 
 
+terraform {
+  backend "s3" {
+    bucket = "endpoint11"
+    key    = "tf_backend/terraform.tfstate"
+    region = "ap-southeast-1"
+  }
+}
+
+
 module "nw" {
 source = "./module/nw"
 vpccidr = "10.0.0.0/20"
@@ -75,6 +84,13 @@ module "sg" {
             {
                 from_port    = "80"
                 to_port      = "80"
+                protocol     = "tcp"
+                cidr_blocks  = ["0.0.0.0/0"]
+                self         = null
+            },
+            {
+                from_port    = "22"
+                to_port      = "22"
                 protocol     = "tcp"
                 cidr_blocks  = ["0.0.0.0/0"]
                 self         = null
@@ -184,7 +200,8 @@ module "asg" {
     tg-arn            = module.lb.tg-arn
     ami-id            = "ami-062df10d14676e201"
     ec2-instance-type = "t2.micro"
-    min_ec2           = 2
+    desired_ec2       = 1
+    min_ec2           = 1
     max_ec2           = 5
     hc_ec2            = 300
 

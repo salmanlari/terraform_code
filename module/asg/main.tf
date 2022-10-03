@@ -20,6 +20,13 @@ resource "aws_launch_configuration" "dev-conf" {
   instance_type      = var.ec2-instance-type
   security_groups    = var.sg_groups
   key_name           = var.key-name
+  user_data = <<-EOF
+  #!/bin/bash
+  sudo su -
+  apt update -y
+  apt install nginx -y
+  systemctl restart nginx.service
+  EOF
     lifecycle {
     create_before_destroy = true
   }
@@ -37,6 +44,7 @@ resource "aws_autoscaling_group" "asg" {
   #availability_zones        = data.aws_availability_zones.available.names
   vpc_zone_identifier        = var.pub-snet
   name                       = "app-asg"
+  desired_capacity           = var.desired_ec2
   max_size                   = var.max_ec2
   min_size                   = var.min_ec2
   health_check_grace_period  = var.hc_ec2
